@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container,table,tr, th, td {
+        border: 1px solid black;
+        text-align: center;
+        background-color: pink;
+        }
+        #container{
+            display: grid;
+            width:50%;
+            
+        }
+        #form>form> sub{
+            background-color: blue;
+            color: white;
+            
+        }
+        
+
+    </style>
+</head>
+<body>
+    <!-- <div id="container"></div> -->
+    <div id="form">
+        <form>
+            
+            <label for="Sname">Student name:</label><br>
+            <input type="text" id="name" placeholder="Enter name"><br>
+            <label for="number">Number:</label><br>
+            <input type="number" id="number" placeholder="Enter Roll number"><br>
+            <label for="City">City:</label><br>
+            <input type="text" id="city" placeholder="Enter city"><br>
+            <input type="submit" id="sub" value="Sumbit"><br>
+          </form>
+        </div>
+          <div id="container">
+              <table>
+                  <thead>
+                  <tr>
+                      <th>Student name</th>
+                      <th>Number</th>
+                      <th>City</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+          </div>
+</body>
+</html> 
+<script>
+    document.querySelector("form").addEventListener("submit",myFunction);
+    var studentArr=JSON.parse(localStorage.getItem("Student_detail")) ||[];
+    displayTable(studentArr)
+    
+    function myFunction(event){
+        event.preventDefault()
+        name=document.querySelector("#name").value
+        number=document.querySelector("#number").value
+        city=document.querySelector("#city").value
+        //console.log(name,number,city);
+
+        function student(n,m,c){
+            this.name=n,
+            this.number=m,
+            this.city=c
+        }
+        let P1= new student(name,number,city);
+        console.log("P1",P1);
+        studentArr.push(P1)
+        console.log(studentArr);
+        localStorage.setItem("Student_detail",JSON.stringify(studentArr));
+        displayTable(studentArr)
+    }
+    function displayTable(studentArrArr) {
+        document.querySelector("tbody").textContent = "";
+    studentArr.map(function (elem, index) {
+      var tr = document.createElement("tr");
+
+      var td1 = document.createElement("td");
+      td1.textContent = elem.name;
+      var td2 = document.createElement("td");
+      td2.textContent = elem.number;
+
+      var td3 = document.createElement("td");
+      td3.textContent = elem.city;
+
+      tr.append(td1, td2, td3);
+      document.querySelector("tbody").append(tr);
+    });
+}
+</script>
